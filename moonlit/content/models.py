@@ -34,17 +34,15 @@ class Tags(models.Model):
         return f"{self.name} {self.description}"
 
 class Likes(models.Model):
-    quantity = models.IntegerField(default=0)
     post = models.ForeignKey(Posts, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    is_liked = models.BooleanField(default=False)
+    is_disliked = models.BooleanField(default=False)
 
     def __str__(self) -> str:
-        return f"{self.post.title} likes: {self.quantity}"
+        return f"user: {self.author.alias} post: {self.post.title}\
+                 likes: {self.is_liked} dislike: {self.is_disliked}"
 
-class Dislikes(models.Model):
-    quantity = models.IntegerField(default=0)
-    post = models.ForeignKey(Posts, on_delete=models.CASCADE)
-    def __str__(self) -> str:
-        return f"{self.post.title} dislikes: {self.quantity}"
 
 class Comments(models.Model):
     content = models.CharField(max_length=MAX_LENGTH_L, blank=True)
@@ -52,6 +50,7 @@ class Comments(models.Model):
     post = models.ForeignKey(Posts, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_created=True, auto_now=True)
     modified_at = models.DateTimeField(auto_now=True)
+    replied = models.BooleanField(default=False)
     def __str__(self) -> str:
         return f"{self.author.alias} {self.post.title} {self.created_at}"
 

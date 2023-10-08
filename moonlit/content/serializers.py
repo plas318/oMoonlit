@@ -17,3 +17,12 @@ class PostSerializer(serializers.ModelSerializer):
                   'likes', 'dislikes', 'thread', 
                   'created_date', 'modified_date')
 
+class TagSerializer(serializers.ModelSerializer):
+    pass
+class CommentSerializer(serializers.ModelSerializer):
+    pass
+class LikeSerializer(serializers.ModelSerializer):
+    pass
+class DisLikeSerializer(serializers.ModelSerializer):
+    pass
+
